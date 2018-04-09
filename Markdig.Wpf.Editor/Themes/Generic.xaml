@@ -1,0 +1,47 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Markdig.Wpf.Editor">
+
+
+    <Style TargetType="{x:Type local:MarkdownEditor}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:MarkdownEditor}">
+                    <Grid Background="{TemplateBinding Background}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition x:Name="Column1" Width="auto"/>
+                            <ColumnDefinition x:Name="Column2" Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <FlowDocumentScrollViewer Document="{TemplateBinding MdDocument}" Grid.Column="0"/>
+                        <GridSplitter Width="2" ResizeBehavior="PreviousAndNext" Grid.Column="1"/>
+                        <DockPanel Grid.Column="2" LastChildFill="True" Background="{TemplateBinding EditorBackground}">
+                            <Button Content="Update" x:Name="UpdateButton" DockPanel.Dock="Bottom" Command="{TemplateBinding Update}"/>
+                            <ProgressBar DockPanel.Dock="Bottom" Value="{TemplateBinding Progress}"/>
+                            <TextBox Text="{TemplateBinding Text}"
+                                     TextWrapping="Wrap" 
+                                     AcceptsReturn="True">
+                                <TextBox.Style>
+                                    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
+                                        <Setter Property="VerticalAlignment" Value="Top"/>
+                                        <Setter Property="FontFamily" Value="Consolas"/>
+                                        <Setter Property="TextWrapping" Value="Wrap"/>
+                                        <Setter Property="Padding" Value="5"/>
+                                    </Style>
+                                </TextBox.Style>
+                            </TextBox>
+                        </DockPanel>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding AutoUpdate}" Value="false">
+                            <Setter TargetName="UpdateButton" Property="Visibility" Value="Collapsed"/>
+                            <Setter TargetName="Column1" Property="Width" Value="0"/>
+                            <Setter TargetName="Column2" Property="Width" Value="0"/>
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
