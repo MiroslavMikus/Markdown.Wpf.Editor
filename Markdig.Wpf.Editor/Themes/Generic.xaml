@@ -21,7 +21,8 @@
                             <ProgressBar DockPanel.Dock="Bottom" Value="{TemplateBinding Progress}"/>
                             <TextBox Text="{TemplateBinding Text}"
                                      TextWrapping="Wrap" 
-                                     AcceptsReturn="True">
+                                     AcceptsReturn="True"
+                                     AcceptsTab="True">
                                 <TextBox.Style>
                                     <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
                                         <Setter Property="VerticalAlignment" Value="Top"/>
