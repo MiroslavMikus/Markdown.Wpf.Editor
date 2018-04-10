@@ -22,8 +22,12 @@ using XamlReader = System.Windows.Markup.XamlReader;
 
 namespace Markdig.Wpf.Editor
 {
+    [TemplatePart(Name = PartUpdateButton, Type = typeof(Button))]
     public class MarkdownEditor : Control
     {
+        private const string PartUpdateButton = "PART_UpdateButton";
+        private Button _updateButton;
+
         private readonly int RefreshInterval;
         private DispatcherTimer RefreshTimer;
         private DispatcherTimer ProgressTimer;
@@ -44,6 +48,18 @@ namespace Markdig.Wpf.Editor
             DefaultStyleKeyProperty.OverrideMetadata(typeof(MarkdownEditor), new FrameworkPropertyMetadata(typeof(MarkdownEditor)));
         }
 
+        public override void OnApplyTemplate()
+        {
+            _updateButton = GetTemplateElement<Button>(PartUpdateButton);
+            _updateButton.Click += UpdateButton_Click;
+        }
+
+        private void UpdateButton_Click(object sender, RoutedEventArgs e)
+        {
+            StopTimers();
+            MdDocument = GenerateDocument(Text);
+        }
+
         #region propdp
         public string Text
         {
@@ -61,7 +77,7 @@ namespace Markdig.Wpf.Editor
             }
         }
         public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register("Text", typeof(string), typeof(MarkdownEditor), new PropertyMetadata(default(string)));
+            DependencyProperty.Register("Text", typeof(string), typeof(MarkdownEditor), DefaultBinding(default(string)));
 
         public bool AutoUpdate
         {
@@ -171,5 +187,14 @@ namespace Markdig.Wpf.Editor
             ProgressTimer?.Stop();
             Progress = 0;
         }
+
+        private T GetTemplateElement<T>(string xName) where T : UIElement => GetTemplateChild(xName) as T;
+
+        protected static FrameworkPropertyMetadata DefaultBinding(object defaultValue)
+            => new FrameworkPropertyMetadata(defaultValue)
+            {
+                BindsTwoWayByDefault = true,
+                DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+            };
     }
 }

@@ -17,9 +17,9 @@
                         <FlowDocumentScrollViewer Document="{TemplateBinding MdDocument}" Grid.Column="0"/>
                         <GridSplitter Width="2" ResizeBehavior="PreviousAndNext" Grid.Column="1"/>
                         <DockPanel Grid.Column="2" LastChildFill="True" Background="{TemplateBinding EditorBackground}">
-                            <Button Content="Update" x:Name="UpdateButton" DockPanel.Dock="Bottom" Command="{TemplateBinding Update}"/>
+                            <Button Content="Update" x:Name="PART_UpdateButton" DockPanel.Dock="Bottom" Command="{TemplateBinding Update}"/>
                             <ProgressBar DockPanel.Dock="Bottom" Value="{TemplateBinding Progress}"/>
-                            <TextBox Text="{TemplateBinding Text}"
+                            <TextBox Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}"
                                      TextWrapping="Wrap" 
                                      AcceptsReturn="True"
                                      AcceptsTab="True"
@@ -39,7 +39,7 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <DataTrigger Binding="{Binding AutoUpdate}" Value="false">
-                            <Setter TargetName="UpdateButton" Property="Visibility" Value="Collapsed"/>
+                            <Setter TargetName="PART_UpdateButton" Property="Visibility" Value="Collapsed"/>
                             <Setter TargetName="Column1" Property="Width" Value="0"/>
                             <Setter TargetName="Column2" Property="Width" Value="0"/>
                         </DataTrigger>
