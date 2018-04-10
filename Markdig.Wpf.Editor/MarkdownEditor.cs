@@ -106,7 +106,6 @@ namespace Markdig.Wpf.Editor
         public static readonly DependencyProperty AutoUpdateProperty =
             DependencyProperty.Register("AutoUpdate", typeof(bool), typeof(MarkdownEditor), new PropertyMetadata(true));
 
-
         public double AutoUpdateInterval
         {
             get { return (double)GetValue(AutoUpdateIntervalProperty); }
@@ -146,14 +145,8 @@ namespace Markdig.Wpf.Editor
         }
         public static readonly DependencyProperty EditorBackgroundProperty =
             DependencyProperty.Register("EditorBackground", typeof(Brush), typeof(MarkdownEditor), new PropertyMetadata(default(Brush)));
-        #endregion
 
-        private static MarkdownPipeline BuildPipeline()
-        {
-            return new MarkdownPipelineBuilder()
-                .UseSupportedExtensions()
-                .Build();
-        }
+        #endregion
 
         /// <summary>
         /// This Timer update ProgressBar
@@ -205,6 +198,12 @@ namespace Markdig.Wpf.Editor
             RefreshTimer?.Stop();
             ProgressTimer?.Stop();
             Progress = 0;
+        }
+        private static MarkdownPipeline BuildPipeline()
+        {
+            return new MarkdownPipelineBuilder()
+                .UseSupportedExtensions()
+                .Build();
         }
 
         private T GetTemplateElement<T>(string xName) where T : UIElement => GetTemplateChild(xName) as T;
