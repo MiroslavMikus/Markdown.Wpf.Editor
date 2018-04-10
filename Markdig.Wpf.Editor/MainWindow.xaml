@@ -7,6 +7,19 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <local:MarkdownEditor Background="Bisque" EditorBackground="LightGray"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <local:MarkdownEditor Background="Bisque" 
+                              EditorBackground="LightGray" 
+                              AutoUpdate="{Binding ElementName=AutoUpdateCheckBox, Path=IsChecked}"
+                              IsEnabled="{Binding ElementName=IsEnabledCheckBox, Path=IsChecked}"
+                              />
+        <StackPanel Grid.Column="1" Margin="5">
+            <Label Content="Control Panel:" Margin="5" FontWeight="Bold"></Label>
+            <CheckBox Content="IsEnabled" x:Name="IsEnabledCheckBox" IsChecked="True"/>
+            <CheckBox Content="AutoUpdate" x:Name="AutoUpdateCheckBox" IsChecked="True"/>
+        </StackPanel>
     </Grid>
 </Window>
