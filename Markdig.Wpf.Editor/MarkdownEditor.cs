@@ -22,7 +22,6 @@ using XamlReader = System.Windows.Markup.XamlReader;
 
 namespace Markdig.Wpf.Editor
 {
-    [TemplatePart(Name = PartUpdateButton, Type = typeof(Button))]
     public class MarkdownEditor : Control
     {
         private const string PartUpdateButton = "PART_UpdateButton";
