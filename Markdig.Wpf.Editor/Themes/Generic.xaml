@@ -16,7 +16,7 @@
                         </Grid.ColumnDefinitions>
                         <FlowDocumentScrollViewer Document="{TemplateBinding MdDocument}" Grid.Column="0"/>
                         <GridSplitter Width="2" ResizeBehavior="PreviousAndNext" Grid.Column="1"/>
-                        <DockPanel Grid.Column="2" LastChildFill="True" Background="{TemplateBinding EditorBackground}">
+                        <DockPanel Grid.Column="2" LastChildFill="True">
                             <Button Content="Update" x:Name="PART_UpdateButton" DockPanel.Dock="Bottom" Command="{TemplateBinding Update}"/>
                             <ProgressBar DockPanel.Dock="Bottom" Value="{TemplateBinding Progress}"/>
                             <TextBox x:Name="PART_TextBox"
@@ -33,6 +33,7 @@
                                         <Setter Property="FontFamily" Value="Consolas"/>
                                         <Setter Property="TextWrapping" Value="Wrap"/>
                                         <Setter Property="Padding" Value="5"/>
+                                        <Setter Property="Background" Value="{Binding EditorBackground, RelativeSource={RelativeSource TemplatedParent}}"/>
                                     </Style>
                                 </TextBox.Style>
                             </TextBox>
