@@ -22,7 +22,9 @@
                             <TextBox Text="{TemplateBinding Text}"
                                      TextWrapping="Wrap" 
                                      AcceptsReturn="True"
-                                     AcceptsTab="True">
+                                     AcceptsTab="True"
+                                     VerticalScrollBarVisibility="Auto"
+                                     >
                                 <TextBox.Style>
                                     <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
                                         <Setter Property="VerticalAlignment" Value="Top"/>
