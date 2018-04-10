@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,16 +13,34 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
+using System.Xaml;
+using Markdig;
+using Markdig.Wpf;
+using XamlReader = System.Windows.Markup.XamlReader;
+
 
 namespace Markdig.Wpf.Editor
 {
     public class MarkdownEditor : Control
     {
+        private readonly int RefreshInterval;
+        private DispatcherTimer RefreshTimer;
+        private DispatcherTimer ProgressTimer;
+
+        public MarkdownEditor()
+        {
+            RefreshTimer = CreateRefreshTimer();
+            ProgressTimer = CreateProgressTimer();
+            RefreshInterval = 5;
+        }
+
         static MarkdownEditor()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(MarkdownEditor), new FrameworkPropertyMetadata(typeof(MarkdownEditor)));
         }
 
+        #region propdp
         public string Text
         {
             get { return (string)GetValue(TextProperty); }
@@ -78,5 +97,57 @@ namespace Markdig.Wpf.Editor
         }
         public static readonly DependencyProperty EditorBackgroundProperty =
             DependencyProperty.Register("EditorBackground", typeof(Brush), typeof(MarkdownEditor), new PropertyMetadata(default(Brush)));
+        #endregion
+
+        private static MarkdownPipeline BuildPipeline()
+        {
+            return new MarkdownPipelineBuilder()
+                .UseSupportedExtensions()
+                .Build();
+        }
+
+        private DispatcherTimer CreateProgressTimer()
+        {
+            return new DispatcherTimer(TimeSpan.FromMilliseconds(100),
+                DispatcherPriority.Normal,
+                (a, b) =>
+                {
+                    Progress += 100.0 / (RefreshInterval * 10);
+                }, Dispatcher.CurrentDispatcher);
+        }
+
+        private DispatcherTimer CreateRefreshTimer()
+        {
+            return new DispatcherTimer(TimeSpan.FromMilliseconds(1000),
+                DispatcherPriority.Normal,
+                (a, b) =>
+                {
+                    MdDocument = GenerateDocument(Text);
+                    StopTimers();
+                }, Dispatcher.CurrentDispatcher);
+        }
+
+        private FlowDocument GenerateDocument(string a_document)
+        {
+            if (string.IsNullOrEmpty(a_document)) return null;
+
+            var xaml = Markdown.ToXaml(a_document, BuildPipeline());
+
+            using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(xaml)))
+            {
+                var reader = new XamlXmlReader(stream, new EditorXamlSchemaContext());
+
+                var document = XamlReader.Load(reader) as FlowDocument;
+
+                return document;
+            }
+        }
+
+        private void StopTimers()
+        {
+            RefreshTimer?.Stop();
+            ProgressTimer?.Stop();
+            Progress = 0;
+        }
     }
 }
