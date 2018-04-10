@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Xaml;
 
-namespace Markdig.Wpf.Editor.Themes
+namespace Markdig.Wpf.Editor
 {
     internal class EditorXamlSchemaContext : XamlSchemaContext
     {
