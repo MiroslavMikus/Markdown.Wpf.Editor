@@ -30,8 +30,8 @@ namespace Markdig.Wpf.Editor
 
         public MarkdownEditor()
         {
-            RefreshTimer = CreateRefreshTimer();
-            ProgressTimer = CreateProgressTimer();
+            RefreshTimer = CreateRenderMdTimer();
+            ProgressTimer = CreateProgressUpdateTimer();
             RefreshInterval = 5;
 
 #if DEBUG
@@ -120,7 +120,11 @@ namespace Markdig.Wpf.Editor
                 .Build();
         }
 
-        private DispatcherTimer CreateProgressTimer()
+        /// <summary>
+        /// This Timer update ProgressBar
+        /// </summary>
+        /// <returns></returns>
+        private DispatcherTimer CreateProgressUpdateTimer()
         {
             return new DispatcherTimer(TimeSpan.FromMilliseconds(100),
                 DispatcherPriority.Normal,
@@ -130,7 +134,11 @@ namespace Markdig.Wpf.Editor
                 }, Dispatcher.CurrentDispatcher);
         }
 
-        private DispatcherTimer CreateRefreshTimer()
+        /// <summary>
+        /// This Timer will generate new Markdown document
+        /// </summary>
+        /// <returns></returns>
+        private DispatcherTimer CreateRenderMdTimer()
         {
             return new DispatcherTimer(TimeSpan.FromMilliseconds(1000),
                 DispatcherPriority.Normal,
