@@ -28,6 +28,9 @@ namespace Markdig.Wpf.Editor
         private const string PartUpdateButton = "PART_UpdateButton";
         private Button _updateButton;
 
+        private const string PartTextBox = "PART_TextBox";
+        private TextBox _textBox;
+
         private readonly int RefreshInterval;
         private DispatcherTimer RefreshTimer;
         private DispatcherTimer ProgressTimer;
@@ -52,8 +55,25 @@ namespace Markdig.Wpf.Editor
         {
             _updateButton = GetTemplateElement<Button>(PartUpdateButton);
             _updateButton.Click += UpdateButton_Click;
+
+            _textBox = GetTemplateElement<TextBox>(PartTextBox);
+            _textBox.TextChanged += TextBox_TextChanged;
+
         }
 
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (sender is TextBox textBox)
+            {
+                Text = textBox.Text;
+            }
+        }
+
+        /// <summary>
+        /// Stops all timers & updates MdDocument
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
             StopTimers();
@@ -77,7 +97,7 @@ namespace Markdig.Wpf.Editor
             }
         }
         public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register("Text", typeof(string), typeof(MarkdownEditor), DefaultBinding(default(string)));
+            DependencyProperty.Register("Text", typeof(string), typeof(MarkdownEditor), CreateBinding(default(string)));
 
         public bool AutoUpdate
         {
@@ -190,11 +210,11 @@ namespace Markdig.Wpf.Editor
 
         private T GetTemplateElement<T>(string xName) where T : UIElement => GetTemplateChild(xName) as T;
 
-        protected static FrameworkPropertyMetadata DefaultBinding(object defaultValue)
+        protected static FrameworkPropertyMetadata CreateBinding(object defaultValue)
             => new FrameworkPropertyMetadata(defaultValue)
             {
-                BindsTwoWayByDefault = true,
-                DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+                DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
+                BindsTwoWayByDefault = true
             };
     }
 }

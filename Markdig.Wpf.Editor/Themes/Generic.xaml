@@ -19,7 +19,8 @@
                         <DockPanel Grid.Column="2" LastChildFill="True" Background="{TemplateBinding EditorBackground}">
                             <Button Content="Update" x:Name="PART_UpdateButton" DockPanel.Dock="Bottom" Command="{TemplateBinding Update}"/>
                             <ProgressBar DockPanel.Dock="Bottom" Value="{TemplateBinding Progress}"/>
-                            <TextBox Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}"
+                            <TextBox x:Name="PART_TextBox"
+                                     Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}"
                                      TextWrapping="Wrap" 
                                      AcceptsReturn="True"
                                      AcceptsTab="True"
