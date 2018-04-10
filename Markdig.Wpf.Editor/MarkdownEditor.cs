@@ -33,6 +33,10 @@ namespace Markdig.Wpf.Editor
             RefreshTimer = CreateRefreshTimer();
             ProgressTimer = CreateProgressTimer();
             RefreshInterval = 5;
+
+#if DEBUG
+            Text = "test";
+#endif 
         }
 
         static MarkdownEditor()
@@ -44,7 +48,17 @@ namespace Markdig.Wpf.Editor
         public string Text
         {
             get { return (string)GetValue(TextProperty); }
-            set { SetValue(TextProperty, value); }
+            set
+            {
+                SetValue(TextProperty, value);
+
+                if (!AutoUpdate) return;
+
+                StopTimers();
+                RefreshTimer.Interval = TimeSpan.FromSeconds(RefreshInterval);
+                RefreshTimer.Start();
+                ProgressTimer.Start();
+            }
         }
         public static readonly DependencyProperty TextProperty =
             DependencyProperty.Register("Text", typeof(string), typeof(MarkdownEditor), new PropertyMetadata(default(string)));
