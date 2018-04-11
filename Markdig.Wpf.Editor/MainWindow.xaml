@@ -14,13 +14,15 @@
         <local:MarkdownEditor Background="Bisque" 
                               EditorBackground="LightGray" 
                               AutoUpdate="{Binding ElementName=AutoUpdateCheckBox, Path=IsChecked}"
-                              AutoUpdateInterval="10000"
+                              AutoUpdateInterval="{Binding ElementName=AutoUpdateIntervalTextBox, Path=Text}"
                               IsEnabled="{Binding ElementName=IsEnabledCheckBox, Path=IsChecked}"
                               />
         <StackPanel Grid.Column="1" Margin="5">
             <Label Content="Control Panel:" Margin="5" FontWeight="Bold"></Label>
             <CheckBox Content="IsEnabled" x:Name="IsEnabledCheckBox" IsChecked="True"/>
             <CheckBox Content="AutoUpdate" x:Name="AutoUpdateCheckBox" IsChecked="True"/>
+            <Label Content="AutoUpdate interval: "/>
+            <TextBox x:Name="AutoUpdateIntervalTextBox">5000</TextBox>
         </StackPanel>
     </Grid>
 </Window>

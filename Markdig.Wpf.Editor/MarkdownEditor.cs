@@ -153,9 +153,7 @@ namespace Markdig.Wpf.Editor
                 DispatcherPriority.Normal,
                 (a, b) =>
                 {
-                    var now = DateTime.Now;
-
-                    var diff = (updateAt - now).TotalMilliseconds;
+                    var diff = (updateAt - DateTime.Now).TotalMilliseconds;
 
                     Progress = 100 - (diff / (updateInterval * 10));
 
