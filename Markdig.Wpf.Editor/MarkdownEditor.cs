@@ -30,16 +30,11 @@ namespace Markdig.Wpf.Editor
         private const string PartTextBox = "PART_TextBox";
         private TextBox _textBox;
 
-        private readonly int RefreshInterval;
-        private DispatcherTimer RefreshTimer;
         private DispatcherTimer ProgressTimer;
 
         public MarkdownEditor()
         {
-            RefreshTimer = CreateRenderMdTimer();
             ProgressTimer = CreateProgressUpdateTimer();
-            RefreshInterval = 5;
-
 #if DEBUG
             Text = "test";
 #endif 
@@ -90,8 +85,7 @@ namespace Markdig.Wpf.Editor
                 if (!AutoUpdate) return;
 
                 StopTimers();
-                RefreshTimer.Interval = TimeSpan.FromSeconds(RefreshInterval);
-                RefreshTimer.Start();
+                ProgressTimer.Interval = TimeSpan.FromMilliseconds(AutoUpdateInterval / 100);
                 ProgressTimer.Start();
             }
         }
@@ -112,7 +106,7 @@ namespace Markdig.Wpf.Editor
             set { SetValue(AutoUpdateIntervalProperty, value); }
         }
         public static readonly DependencyProperty AutoUpdateIntervalProperty =
-            DependencyProperty.Register("AutoUpdateInterval", typeof(double), typeof(MarkdownEditor), new PropertyMetadata(default(double)));
+            DependencyProperty.Register("AutoUpdateInterval", typeof(double), typeof(MarkdownEditor), new PropertyMetadata(5000d));
 
         public double Progress
         {
@@ -154,26 +148,24 @@ namespace Markdig.Wpf.Editor
         /// <returns></returns>
         private DispatcherTimer CreateProgressUpdateTimer()
         {
-            return new DispatcherTimer(TimeSpan.FromMilliseconds(100),
-                DispatcherPriority.Normal,
-                (a, b) =>
-                {
-                    Progress += 100.0 / (RefreshInterval * 10);
-                }, Dispatcher.CurrentDispatcher);
-        }
+            // calculate 1 % of update interval
+            var timestamp = AutoUpdateInterval / 100;
 
-        /// <summary>
-        /// This Timer will generate new Markdown document
-        /// </summary>
-        /// <returns></returns>
-        private DispatcherTimer CreateRenderMdTimer()
-        {
-            return new DispatcherTimer(TimeSpan.FromMilliseconds(1000),
+            // increase progress bar
+            return new DispatcherTimer(TimeSpan.FromMilliseconds(timestamp),
                 DispatcherPriority.Normal,
                 (a, b) =>
                 {
-                    MdDocument = GenerateDocument(Text);
-                    StopTimers();
+                    if (Progress <= 100)
+                    {
+                        Progress += 1;
+                    }
+                    else
+                    {
+                        MdDocument = GenerateDocument(Text);
+                        StopTimers();
+                    }
+
                 }, Dispatcher.CurrentDispatcher);
         }
 
@@ -195,10 +187,10 @@ namespace Markdig.Wpf.Editor
 
         private void StopTimers()
         {
-            RefreshTimer?.Stop();
             ProgressTimer?.Stop();
             Progress = 0;
         }
+
         private static MarkdownPipeline BuildPipeline()
         {
             return new MarkdownPipelineBuilder()
