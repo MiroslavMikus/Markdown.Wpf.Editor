@@ -34,10 +34,10 @@ namespace Markdig.Wpf.Editor
 
         public MarkdownEditor()
         {
-            ProgressTimer = CreateProgressTimer();
 #if DEBUG
             Text = "test";
 #endif 
+            MdDocument = GenerateDocument(Text);
         }
 
         static MarkdownEditor()
@@ -63,7 +63,7 @@ namespace Markdig.Wpf.Editor
                 if (!AutoUpdate) return;
 
                 StopTimers();
-                ProgressTimer.Interval = TimeSpan.FromMilliseconds(AutoUpdateInterval / 100);
+                ProgressTimer = CreateProgressTimer();
                 ProgressTimer.Start();
             }
         }
@@ -145,7 +145,7 @@ namespace Markdig.Wpf.Editor
         private DispatcherTimer CreateProgressTimer()
         {
             // calculate 1 % of update interval
-            var updateInterval = AutoUpdateInterval / 100;
+            var updateInterval = AutoUpdateInterval / 1000;
 
             var updateAt = DateTime.Now.AddMilliseconds(AutoUpdateInterval);
 
@@ -153,16 +153,16 @@ namespace Markdig.Wpf.Editor
                 DispatcherPriority.Normal,
                 (a, b) =>
                 {
-                    // increase progress bar
-                    if (Progress <= 100)
-                        Progress += 1;
+                    var now = DateTime.Now;
 
-                    if (DateTime.Now < updateAt || Progress >= 100)
+                    var diff = (updateAt - now).TotalMilliseconds;
+
+                    Progress = 100 - (diff / (updateInterval * 10));
+
+                    if (Progress >= 100)
                     {
-                        // update document
-                        MdDocument = GenerateDocument(Text);
-
                         StopTimers();
+                        MdDocument = GenerateDocument(Text);
                     }
 
                 }, Dispatcher.CurrentDispatcher);
