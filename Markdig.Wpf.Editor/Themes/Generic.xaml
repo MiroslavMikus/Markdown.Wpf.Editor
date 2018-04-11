@@ -18,7 +18,7 @@
                         <GridSplitter Width="2" ResizeBehavior="PreviousAndNext" Grid.Column="1"/>
                         <DockPanel Grid.Column="2" LastChildFill="True">
                             <Button Content="Update" x:Name="PART_UpdateButton" DockPanel.Dock="Bottom" Command="{TemplateBinding Update}"/>
-                            <ProgressBar DockPanel.Dock="Bottom" Value="{TemplateBinding Progress}"/>
+                            <ProgressBar x:Name="MdProgressBar" DockPanel.Dock="Bottom" Value="{TemplateBinding Progress}"/>
                             <TextBox x:Name="PART_TextBox"
                                      Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}"
                                      TextWrapping="Wrap" 
@@ -43,6 +43,9 @@
                         <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="false">
                             <Setter TargetName="Column1" Property="Width" Value="0"/>
                             <Setter TargetName="Column2" Property="Width" Value="0"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding AutoUpdate, RelativeSource={RelativeSource Self}}" Value="false">
+                            <Setter TargetName="MdProgressBar" Property="Visibility" Value="Collapsed"/>
                         </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

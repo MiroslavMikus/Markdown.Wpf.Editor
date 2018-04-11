@@ -14,7 +14,7 @@
         <local:MarkdownEditor Background="Bisque" 
                               EditorBackground="LightGray" 
                               AutoUpdate="{Binding ElementName=AutoUpdateCheckBox, Path=IsChecked}"
-                              AutoUpdateInterval="2000"
+                              AutoUpdateInterval="10000"
                               IsEnabled="{Binding ElementName=IsEnabledCheckBox, Path=IsChecked}"
                               />
         <StackPanel Grid.Column="1" Margin="5">
