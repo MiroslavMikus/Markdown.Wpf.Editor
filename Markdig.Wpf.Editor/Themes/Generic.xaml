@@ -38,11 +38,22 @@
                                 </TextBox.Style>
                             </TextBox>
                         </DockPanel>
+                        <Button x:Name="PART_PinButton"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Top"
+                                        BorderThickness="0"
+                                        Background="Transparent"
+                                        Grid.Column="2"        
+                                        >
+                            <TextBlock Margin="10"  x:Name="Pin" FontFamily="Segoe MDL2 Assets" Text="&#xE77A;"/>
+                        </Button>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="false">
                             <Setter TargetName="Column1" Property="Width" Value="0"/>
                             <Setter TargetName="Column2" Property="Width" Value="0"/>
+                            <Setter TargetName="Pin" Property="Text" Value="&#xE718;"/>
+                            <Setter TargetName="PART_PinButton" Property="Grid.Column" Value="0"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding AutoUpdate, RelativeSource={RelativeSource Self}}" Value="false">
                             <Setter TargetName="MdProgressBar" Property="Visibility" Value="Collapsed"/>
