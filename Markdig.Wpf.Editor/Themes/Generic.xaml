@@ -32,35 +32,46 @@
                                         <Setter Property="VerticalAlignment" Value="Top"/>
                                         <Setter Property="FontFamily" Value="Consolas"/>
                                         <Setter Property="TextWrapping" Value="Wrap"/>
-                                        <Setter Property="Padding" Value="5"/>
+                                        <Setter Property="Padding" Value="5 10 5 5"/>
                                         <Setter Property="Background" Value="{Binding EditorBackground, RelativeSource={RelativeSource TemplatedParent}}"/>
                                     </Style>
                                 </TextBox.Style>
                             </TextBox>
                         </DockPanel>
-                        <Button x:Name="PART_PinButton"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Top"
-                                BorderThickness="0"
-                                Grid.Column="2"
-                                Background="Transparent"
-                                Margin="0 0 18 0"
-                                Opacity="0.8"
-                                >
-                            <TextBlock Margin="10" x:Name="Pin" FontFamily="Segoe MDL2 Assets" Text="&#xE77A;"/>
-                        </Button>
+                        <StackPanel x:Name="ButtonsStack" Grid.Column="2" 
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Top"
+                                    Margin="0 0 18 0"
+                                    >
+                            <StackPanel.Resources>
+                                <Style TargetType="Button">
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Opacity" Value="0.8"/>
+                                </Style>
+                            </StackPanel.Resources>
+                            <Button x:Name="PART_AutoUpdateButton">
+                                <TextBlock Margin="10" x:Name="Play" FontFamily="Segoe MDL2 Assets" Text="&#xE769;"/>
+                            </Button>
+                            <Button x:Name="PART_PinButton">
+                                <TextBlock Margin="10" x:Name="Pin" FontFamily="Segoe MDL2 Assets" Text="&#xE77A;"/>
+                            </Button>
+                        </StackPanel>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="false">
                             <Setter TargetName="Column1" Property="Width" Value="0"/>
                             <Setter TargetName="Column2" Property="Width" Value="0"/>
                             <Setter TargetName="Pin" Property="Text" Value="&#xE718;"/>
-                            <Setter TargetName="PART_PinButton" Property="Grid.Column" Value="0"/>
+                            <Setter TargetName="PART_AutoUpdateButton" Property="Visibility" Value="Hidden"/>
+                            <Setter TargetName="ButtonsStack" Property="Grid.Column" Value="0"/>
                             <Setter TargetName="PART_PinButton" Property="IsEnabled" Value="True"/>
                             <Setter TargetName="PART_PinButton" Property="Opacity" Value="0.5"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding AutoUpdate, RelativeSource={RelativeSource Self}}" Value="false">
                             <Setter TargetName="MdProgressBar" Property="Visibility" Value="Collapsed"/>
+                            <Setter TargetName="Play" Property="Text" Value="&#xE768;"/>
                         </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

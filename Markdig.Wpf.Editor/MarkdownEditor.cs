@@ -33,6 +33,9 @@ namespace Markdig.Wpf.Editor
         private const string PinButton = "PART_PinButton";
         private Button _pinButton;
 
+        private const string AutoUpdateButton = "PART_AutoUpdateButton";
+        private Button _autoUpdateButton;
+
         private DispatcherTimer ProgressTimer;
 
         public MarkdownEditor()
@@ -58,6 +61,15 @@ namespace Markdig.Wpf.Editor
 
             _pinButton = GetTemplateElement<Button>(PinButton);
             _pinButton.Click += PinButton_Click;
+
+            _autoUpdateButton = GetTemplateElement<Button>(AutoUpdateButton);
+            _autoUpdateButton.Click += AutoUpdateButton_Click;
+        }
+
+        private void AutoUpdateButton_Click(object sender, RoutedEventArgs e)
+        {
+            // switch 'auto-update' state
+            AutoUpdate = !AutoUpdate;
         }
 
         private void PinButton_Click(object sender, RoutedEventArgs e)
