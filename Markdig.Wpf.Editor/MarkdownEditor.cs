@@ -30,6 +30,9 @@ namespace Markdig.Wpf.Editor
         private const string PartTextBox = "PART_TextBox";
         private TextBox _textBox;
 
+        private const string PinButton = "PART_PinButton";
+        private Button _pinButton;
+
         private DispatcherTimer ProgressTimer;
 
         public MarkdownEditor()
@@ -52,6 +55,15 @@ namespace Markdig.Wpf.Editor
 
             _textBox = GetTemplateElement<TextBox>(PartTextBox);
             _textBox.TextChanged += TextBox_TextChanged;
+
+            _pinButton = GetTemplateElement<Button>(PinButton);
+            _pinButton.Click += PinButton_Click;
+        }
+
+        private void PinButton_Click(object sender, RoutedEventArgs e)
+        {
+            // switch 'enabled' state
+            IsEnabled = !IsEnabled;
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -61,6 +73,13 @@ namespace Markdig.Wpf.Editor
                 Text = textBox.Text;
 
                 if (!AutoUpdate) return;
+
+                if (AutoUpdateInterval < 500)
+                {
+                    MdDocument = GenerateDocument(Text);
+
+                    return;
+                }
 
                 StopTimers();
                 ProgressTimer = CreateProgressTimer();
@@ -135,6 +154,14 @@ namespace Markdig.Wpf.Editor
         }
         public static readonly DependencyProperty EditorBackgroundProperty =
             DependencyProperty.Register("EditorBackground", typeof(Brush), typeof(MarkdownEditor), new PropertyMetadata(default(Brush)));
+
+        public new bool IsEnabled
+        {
+            get { return (bool)GetValue(IsEnabledProperty); }
+            set { SetValue(IsEnabledProperty, value); }
+        }
+        public new static readonly DependencyProperty IsEnabledProperty =
+            DependencyProperty.Register("IsEnabled", typeof(bool), typeof(MarkdownEditor), new PropertyMetadata(default(bool)));
 
         #endregion
 

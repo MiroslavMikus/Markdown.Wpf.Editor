@@ -14,7 +14,7 @@
                             <ColumnDefinition x:Name="Column1" Width="auto"/>
                             <ColumnDefinition x:Name="Column2" Width="*" />
                         </Grid.ColumnDefinitions>
-                        <FlowDocumentScrollViewer Document="{TemplateBinding MdDocument}" Grid.Column="0"/>
+                        <FlowDocumentScrollViewer Document="{TemplateBinding MdDocument}" Grid.Column="0" VerticalScrollBarVisibility="Auto"/>
                         <GridSplitter Width="2" ResizeBehavior="PreviousAndNext" Grid.Column="1"/>
                         <DockPanel Grid.Column="2" LastChildFill="True">
                             <Button Content="Update" x:Name="PART_UpdateButton" DockPanel.Dock="Bottom" Command="{TemplateBinding Update}"/>
@@ -39,13 +39,15 @@
                             </TextBox>
                         </DockPanel>
                         <Button x:Name="PART_PinButton"
-                                        HorizontalAlignment="Right"
-                                        VerticalAlignment="Top"
-                                        BorderThickness="0"
-                                        Background="Transparent"
-                                        Grid.Column="2"        
-                                        >
-                            <TextBlock Margin="10"  x:Name="Pin" FontFamily="Segoe MDL2 Assets" Text="&#xE77A;"/>
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                BorderThickness="0"
+                                Grid.Column="2"
+                                Background="Transparent"
+                                Margin="0 0 18 0"
+                                Opacity="0.8"
+                                >
+                            <TextBlock Margin="10" x:Name="Pin" FontFamily="Segoe MDL2 Assets" Text="&#xE77A;"/>
                         </Button>
                     </Grid>
                     <ControlTemplate.Triggers>
@@ -54,6 +56,8 @@
                             <Setter TargetName="Column2" Property="Width" Value="0"/>
                             <Setter TargetName="Pin" Property="Text" Value="&#xE718;"/>
                             <Setter TargetName="PART_PinButton" Property="Grid.Column" Value="0"/>
+                            <Setter TargetName="PART_PinButton" Property="IsEnabled" Value="True"/>
+                            <Setter TargetName="PART_PinButton" Property="Opacity" Value="0.5"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding AutoUpdate, RelativeSource={RelativeSource Self}}" Value="false">
                             <Setter TargetName="MdProgressBar" Property="Visibility" Value="Collapsed"/>
