@@ -51,10 +51,10 @@
                                     <Setter Property="Opacity" Value="0.8"/>
                                 </Style>
                             </StackPanel.Resources>
-                            <Button x:Name="PART_AutoUpdateButton">
+                            <Button x:Name="PART_AutoUpdateButton" ToolTip="Disable auto-update feature">
                                 <TextBlock Margin="10" x:Name="Play" FontFamily="Segoe MDL2 Assets" Text="&#xE769;"/>
                             </Button>
-                            <Button x:Name="PART_PinButton">
+                            <Button x:Name="PART_PinButton" ToolTip="Disable editing">
                                 <TextBlock Margin="10" x:Name="Pin" FontFamily="Segoe MDL2 Assets" Text="&#xE77A;"/>
                             </Button>
                         </StackPanel>
@@ -66,12 +66,13 @@
                             <Setter TargetName="Pin" Property="Text" Value="&#xE718;"/>
                             <Setter TargetName="PART_AutoUpdateButton" Property="Visibility" Value="Hidden"/>
                             <Setter TargetName="ButtonsStack" Property="Grid.Column" Value="0"/>
-                            <Setter TargetName="PART_PinButton" Property="IsEnabled" Value="True"/>
                             <Setter TargetName="PART_PinButton" Property="Opacity" Value="0.5"/>
+                            <Setter TargetName="PART_PinButton" Property="ToolTip" Value="Enable editing"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding AutoUpdate, RelativeSource={RelativeSource Self}}" Value="false">
                             <Setter TargetName="MdProgressBar" Property="Visibility" Value="Collapsed"/>
                             <Setter TargetName="Play" Property="Text" Value="&#xE768;"/>
+                            <Setter TargetName="PART_AutoUpdateButton" Property="ToolTip" Value="Enable auto-update feature"/>
                         </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
