@@ -18,7 +18,7 @@
                               EditorBackground="LightGray" 
                               AutoUpdate="{Binding ElementName=AutoUpdateCheckBox, Path=IsChecked, Mode=TwoWay}"
                               AutoUpdateInterval="{Binding ElementName=AutoUpdateIntervalTextBox, Path=Text}"
-                              IsEnabled="{Binding ElementName=IsEnabledCheckBox, Path=IsChecked}"
+                              IsEnabled="{Binding ElementName=IsEnabledCheckBox, Path=IsChecked, Mode=TwoWay}"
                               Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               Hyperlink="{Binding OnHyperlink}"
                               />

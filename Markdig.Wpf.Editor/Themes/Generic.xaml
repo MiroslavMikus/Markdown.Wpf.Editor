@@ -11,12 +11,12 @@
                     <Grid Background="{TemplateBinding Background}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition x:Name="Column1" Width="auto"/>
-                            <ColumnDefinition x:Name="Column2" Width="*" />
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition x:Name="ColumnDeff" Width="*" />
                         </Grid.ColumnDefinitions>
                         <markdig:MarkdownViewer x:Name="PART_MarkdownViewer" />
-                        <GridSplitter Width="2" ResizeBehavior="PreviousAndNext" Grid.Column="1"/>
-                        <DockPanel Grid.Column="2" LastChildFill="True">
+                        <GridSplitter x:Name="Splitter" Width="4" ResizeBehavior="PreviousAndNext" Grid.Column="1"/>
+                        <DockPanel x:Name="DockEditor" Grid.Column="2" LastChildFill="True" >
                             <Button Content="Update" x:Name="PART_UpdateButton" DockPanel.Dock="Bottom" Command="{TemplateBinding Update}"/>
                             <ProgressBar x:Name="MdProgressBar" DockPanel.Dock="Bottom" Value="{TemplateBinding Progress}"/>
                             <TextBox x:Name="PART_TextBox"
@@ -38,11 +38,11 @@
                                 </TextBox.Style>
                             </TextBox>
                         </DockPanel>
-                        <StackPanel x:Name="ButtonsStack" Grid.Column="2" 
+                        <StackPanel x:Name="ButtonsStack"
                                     Orientation="Horizontal"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Top"
-                                    Margin="0 0 18 0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Bottom"
+                                    Margin="1"
                                     >
                             <StackPanel.Resources>
                                 <Style TargetType="Button">
@@ -51,21 +51,21 @@
                                     <Setter Property="Opacity" Value="0.8"/>
                                 </Style>
                             </StackPanel.Resources>
-                            <Button x:Name="PART_AutoUpdateButton" ToolTip="Disable auto-update feature">
-                                <TextBlock Margin="10" x:Name="Play" FontFamily="Segoe MDL2 Assets" Text="&#xE769;"/>
-                            </Button>
                             <Button x:Name="PART_PinButton" ToolTip="Disable editing">
                                 <TextBlock Margin="10" x:Name="Pin" FontFamily="Segoe MDL2 Assets" Text="&#xE77A;"/>
+                            </Button>
+                            <Button x:Name="PART_AutoUpdateButton" ToolTip="Disable auto-update feature">
+                                <TextBlock Margin="10" x:Name="Play" FontFamily="Segoe MDL2 Assets" Text="&#xE769;"/>
                             </Button>
                         </StackPanel>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="false">
-                            <Setter TargetName="Column1" Property="Width" Value="0"/>
-                            <Setter TargetName="Column2" Property="Width" Value="0"/>
+                            <Setter TargetName="ColumnDeff" Property="Width" Value="auto"/>
+                            <Setter TargetName="Splitter" Property="Visibility" Value="Collapsed"/>
+                            <Setter TargetName="DockEditor" Property="Visibility" Value="Collapsed"/>
                             <Setter TargetName="Pin" Property="Text" Value="&#xE718;"/>
                             <Setter TargetName="PART_AutoUpdateButton" Property="Visibility" Value="Hidden"/>
-                            <Setter TargetName="ButtonsStack" Property="Grid.Column" Value="0"/>
                             <Setter TargetName="PART_PinButton" Property="Opacity" Value="0.5"/>
                             <Setter TargetName="PART_PinButton" Property="ToolTip" Value="Enable editing"/>
                         </DataTrigger>
