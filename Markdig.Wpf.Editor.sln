@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Markdig.Wpf.Editor", "Markdig.Wpf.Editor\Markdig.Wpf.Editor.csproj", "{0A975087-0046-4B99-B09F-AA3ABB42DAE4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Markdig.Wpf.Editor.Demo", "Markdig.Wpf.Editor.Demo\Markdig.Wpf.Editor.Demo.csproj", "{2700DC9A-2A5C-4014-9E4D-465CF0B774EF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{0A975087-0046-4B99-B09F-AA3ABB42DAE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A975087-0046-4B99-B09F-AA3ABB42DAE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A975087-0046-4B99-B09F-AA3ABB42DAE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2700DC9A-2A5C-4014-9E4D-465CF0B774EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2700DC9A-2A5C-4014-9E4D-465CF0B774EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2700DC9A-2A5C-4014-9E4D-465CF0B774EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2700DC9A-2A5C-4014-9E4D-465CF0B774EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
