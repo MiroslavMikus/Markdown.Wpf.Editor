@@ -27,7 +27,7 @@
                 <CheckBox Content="IsEnabled" x:Name="IsEnabledCheckBox" IsChecked="True"/>
                 <CheckBox Content="AutoUpdate" x:Name="AutoUpdateCheckBox" IsChecked="True"/>
                 <Label Content="AutoUpdate interval: "/>
-                <TextBox x:Name="AutoUpdateIntervalTextBox">5000</TextBox>
+                <TextBox x:Name="AutoUpdateIntervalTextBox">2000</TextBox>
             </StackPanel>
         </Grid>
     </Grid>

@@ -25,6 +25,7 @@ namespace Markdig.Wpf.Editor
 {
     public class MarkdownEditor : Control
     {
+        #region Template parts
         private const string PartUpdateButton = "PART_UpdateButton";
         private Button _updateButton;
 
@@ -38,9 +39,11 @@ namespace Markdig.Wpf.Editor
         private Button _autoUpdateButton;
 
         private const string MarkDownControl = "PART_MarkdownViewer";
-        private MarkdownViewer _markDownControl;
+        private MarkdownViewer _markDownControl; 
+        #endregion
 
-        private DispatcherTimer ProgressTimer;
+        private DispatcherTimer _progressTimer;
+        private bool _instantLoad = true;
 
         public MarkdownEditor()
         {
@@ -71,6 +74,7 @@ namespace Markdig.Wpf.Editor
             _markDownControl.CommandBindings.Add(new CommandBinding(Commands.Hyperlink, ExecuteHyperlink));
         }
 
+        #region Events
         private void ExecuteHyperlink(object sender, ExecutedRoutedEventArgs e)
         {
             if (Hyperlink != null)
@@ -99,6 +103,16 @@ namespace Markdig.Wpf.Editor
         {
             if (sender is TextBox textBox)
             {
+                // On first load the MD document shold be created instantly
+                if (_instantLoad)
+                {
+                    GenerateDocument(Text);
+
+                    _instantLoad = false;
+
+                    return;
+                }
+
                 Text = textBox.Text;
 
                 if (!AutoUpdate) return;
@@ -111,8 +125,8 @@ namespace Markdig.Wpf.Editor
                 }
 
                 StopTimers();
-                ProgressTimer = CreateProgressTimer();
-                ProgressTimer.Start();
+                _progressTimer = CreateProgressTimer();
+                _progressTimer.Start();
             }
         }
 
@@ -126,6 +140,7 @@ namespace Markdig.Wpf.Editor
             StopTimers();
             GenerateDocument(Text);
         }
+        #endregion
 
         #region propdp
         public string Text
@@ -225,7 +240,7 @@ namespace Markdig.Wpf.Editor
         private void StopTimers()
         {
             // stop timer
-            ProgressTimer?.Stop();
+            _progressTimer?.Stop();
 
             // reset progress
             Progress = 0;

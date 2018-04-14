@@ -33,10 +33,9 @@ namespace Markdig.Wpf.Editor.Demo
 
 [Open cmd](cmd)
 
-[Open google](https://www.google.com)
-";
+[Open google](https://www.google.com)";
 
-            OnHyperlink = new DelegateCommand(link => 
+            OnHyperlink = new DelegateCommand(link =>
             {
                 if (link is string input)
                 {
