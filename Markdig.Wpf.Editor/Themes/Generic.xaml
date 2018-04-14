@@ -1,7 +1,9 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:Markdig.Wpf.Editor">
+    xmlns:local="clr-namespace:Markdig.Wpf.Editor"
+    xmlns:markdig="clr-namespace:Markdig.Wpf;assembly=Markdig.Wpf"
+    >
     <Style TargetType="{x:Type local:MarkdownEditor}">
         <Setter Property="Template">
             <Setter.Value>
@@ -12,7 +14,7 @@
                             <ColumnDefinition x:Name="Column1" Width="auto"/>
                             <ColumnDefinition x:Name="Column2" Width="*" />
                         </Grid.ColumnDefinitions>
-                        <FlowDocumentScrollViewer Document="{TemplateBinding MdDocument}" Grid.Column="0" VerticalScrollBarVisibility="Auto"/>
+                        <markdig:MarkdownViewer x:Name="PART_MarkdownViewer" />
                         <GridSplitter Width="2" ResizeBehavior="PreviousAndNext" Grid.Column="1"/>
                         <DockPanel Grid.Column="2" LastChildFill="True">
                             <Button Content="Update" x:Name="PART_UpdateButton" DockPanel.Dock="Bottom" Command="{TemplateBinding Update}"/>

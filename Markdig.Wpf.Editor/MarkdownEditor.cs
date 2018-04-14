@@ -36,11 +36,14 @@ namespace Markdig.Wpf.Editor
         private const string AutoUpdateButton = "PART_AutoUpdateButton";
         private Button _autoUpdateButton;
 
+        private const string MarkDownControl = "PART_MarkdownViewer";
+        private MarkdownViewer _markDownControl;
+
         private DispatcherTimer ProgressTimer;
 
         public MarkdownEditor()
         {
-            MdDocument = GenerateDocument(Text);
+            GenerateDocument(Text);
         }
 
         static MarkdownEditor()
@@ -61,6 +64,9 @@ namespace Markdig.Wpf.Editor
 
             _autoUpdateButton = GetTemplateElement<Button>(AutoUpdateButton);
             _autoUpdateButton.Click += AutoUpdateButton_Click;
+
+            _markDownControl = GetTemplateElement<MarkdownViewer>(MarkDownControl);
+            _markDownControl.Pipeline = BuildPipeline();
         }
 
         private void AutoUpdateButton_Click(object sender, RoutedEventArgs e)
@@ -85,7 +91,7 @@ namespace Markdig.Wpf.Editor
 
                 if (AutoUpdateInterval < 500)
                 {
-                    MdDocument = GenerateDocument(Text);
+                    GenerateDocument(Text);
 
                     return;
                 }
@@ -104,7 +110,7 @@ namespace Markdig.Wpf.Editor
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
             StopTimers();
-            MdDocument = GenerateDocument(Text);
+            GenerateDocument(Text);
         }
 
         #region propdp
@@ -140,13 +146,6 @@ namespace Markdig.Wpf.Editor
         public static readonly DependencyProperty ProgressProperty =
             DependencyProperty.Register("Progress", typeof(double), typeof(MarkdownEditor), new PropertyMetadata(default(double)));
 
-        public FlowDocument MdDocument
-        {
-            get { return (FlowDocument)GetValue(MdDocumentProperty); }
-            set { SetValue(MdDocumentProperty, value); }
-        }
-        public static readonly DependencyProperty MdDocumentProperty =
-            DependencyProperty.Register("MdDocument", typeof(FlowDocument), typeof(MarkdownEditor), new PropertyMetadata(default(FlowDocument)));
 
         public ICommand Update
         {
@@ -196,7 +195,7 @@ namespace Markdig.Wpf.Editor
                     if (Progress >= 100)
                     {
                         StopTimers();
-                        MdDocument = GenerateDocument(Text);
+                        GenerateDocument(Text);
                     }
 
                 }, Dispatcher.CurrentDispatcher);
@@ -211,20 +210,11 @@ namespace Markdig.Wpf.Editor
             Progress = 0;
         }
 
-        private FlowDocument GenerateDocument(string a_document)
+        private void GenerateDocument(string a_document)
         {
-            if (string.IsNullOrEmpty(a_document)) return null;
+            if (string.IsNullOrEmpty(a_document)) return;
 
-            var xaml = Markdown.ToXaml(a_document, BuildPipeline());
-
-            using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(xaml)))
-            {
-                var reader = new XamlXmlReader(stream, new EditorXamlSchemaContext());
-
-                var document = XamlReader.Load(reader) as FlowDocument;
-
-                return document;
-            }
+            _markDownControl.Markdown = a_document;
         }
 
         private static MarkdownPipeline BuildPipeline()

@@ -16,7 +16,7 @@
             </Grid.ColumnDefinitions>
             <editor:MarkdownEditor Background="Bisque" 
                               EditorBackground="LightGray" 
-                              AutoUpdate="{Binding ElementName=AutoUpdateCheckBox, Path=IsChecked}"
+                              AutoUpdate="{Binding ElementName=AutoUpdateCheckBox, Path=IsChecked, Mode=TwoWay}"
                               AutoUpdateInterval="{Binding ElementName=AutoUpdateIntervalTextBox, Path=Text}"
                               IsEnabled="{Binding ElementName=IsEnabledCheckBox, Path=IsChecked}"
                               Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
