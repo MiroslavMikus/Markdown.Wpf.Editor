@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -67,6 +68,19 @@ namespace Markdig.Wpf.Editor
 
             _markDownControl = GetTemplateElement<MarkdownViewer>(MarkDownControl);
             _markDownControl.Pipeline = BuildPipeline();
+            _markDownControl.CommandBindings.Add(new CommandBinding(Commands.Hyperlink, ExecuteHyperlink));
+        }
+
+        private void ExecuteHyperlink(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (Hyperlink != null)
+            {
+                Hyperlink.Execute(e.Parameter.ToString());
+            }
+            else
+            {
+                Process.Start(e.Parameter.ToString());
+            }
         }
 
         private void AutoUpdateButton_Click(object sender, RoutedEventArgs e)
@@ -146,7 +160,6 @@ namespace Markdig.Wpf.Editor
         public static readonly DependencyProperty ProgressProperty =
             DependencyProperty.Register("Progress", typeof(double), typeof(MarkdownEditor), new PropertyMetadata(default(double)));
 
-
         public ICommand Update
         {
             get { return (ICommand)GetValue(UpdateProperty); }
@@ -154,6 +167,14 @@ namespace Markdig.Wpf.Editor
         }
         public static readonly DependencyProperty UpdateProperty =
             DependencyProperty.Register("Update", typeof(ICommand), typeof(MarkdownEditor), new PropertyMetadata(default(ICommand)));
+
+        public ICommand Hyperlink
+        {
+            get { return (ICommand)GetValue(HyperlinkProperty); }
+            set { SetValue(HyperlinkProperty, value); }
+        }
+        public static readonly DependencyProperty HyperlinkProperty =
+            DependencyProperty.Register("Hyperlink", typeof(ICommand), typeof(MarkdownEditor), new PropertyMetadata(default(ICommand)));
 
         public Brush EditorBackground
         {
@@ -179,17 +200,17 @@ namespace Markdig.Wpf.Editor
         /// <returns></returns>
         private DispatcherTimer CreateProgressTimer()
         {
-            // calculate 1 % of update interval
+            // calculate 0,1 % of update interval
             var updateInterval = AutoUpdateInterval / 1000;
 
             var updateAt = DateTime.Now.AddMilliseconds(AutoUpdateInterval);
 
-            return new DispatcherTimer(TimeSpan.FromMilliseconds(updateInterval),
-                DispatcherPriority.Normal,
+            return new DispatcherTimer(TimeSpan.FromMilliseconds(updateInterval), DispatcherPriority.Normal,
                 (a, b) =>
                 {
                     var diff = (updateAt - DateTime.Now).TotalMilliseconds;
 
+                    // (updateInterval * 10) = 1 %
                     Progress = 100 - (diff / (updateInterval * 10));
 
                     if (Progress >= 100)

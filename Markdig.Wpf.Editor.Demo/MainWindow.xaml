@@ -20,6 +20,7 @@
                               AutoUpdateInterval="{Binding ElementName=AutoUpdateIntervalTextBox, Path=Text}"
                               IsEnabled="{Binding ElementName=IsEnabledCheckBox, Path=IsChecked}"
                               Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              Hyperlink="{Binding OnHyperlink}"
                               />
             <StackPanel Grid.Column="1" Margin="5">
                 <Label Content="Control Panel:" Margin="5" FontWeight="Bold"></Label>

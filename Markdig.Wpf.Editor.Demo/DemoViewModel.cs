@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 
 namespace Markdig.Wpf.Editor.Demo
 {
     public class DemoViewModel : INotifyPropertyChanged
     {
         private string _text;
-
         public string Text
         {
             get => _text;
@@ -22,9 +24,27 @@ namespace Markdig.Wpf.Editor.Demo
             }
         }
 
+        public ICommand OnHyperlink { get; }
+
         public DemoViewModel()
         {
-            Text = "Demo text";
+            Text = @"
+*Demo text*
+
+[Open cmd](cmd)
+
+[Open google](https://www.google.com)
+";
+
+            OnHyperlink = new DelegateCommand(link => 
+            {
+                if (link is string input)
+                {
+                    MessageBox.Show(input);
+
+                    Process.Start(input);
+                }
+            });
         }
 
         #region INotifyPropertyChanged Members
