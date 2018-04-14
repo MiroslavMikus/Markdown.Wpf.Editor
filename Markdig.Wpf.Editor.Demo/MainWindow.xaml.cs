@@ -23,6 +23,8 @@ namespace Markdig.Wpf.Editor.Demo
         public MainWindow()
         {
             InitializeComponent();
+
+            DataContext = new DemoViewModel();
         }
     }
 }

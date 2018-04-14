@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Markdig.Wpf.Editor.Demo"
-        mc:Ignorable="d"
         xmlns:editor="clr-namespace:Markdig.Wpf.Editor;assembly=Markdig.Wpf.Editor"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance local:DemoViewModel, IsDesignTimeCreatable=True}"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Grid>
@@ -18,6 +19,7 @@
                               AutoUpdate="{Binding ElementName=AutoUpdateCheckBox, Path=IsChecked}"
                               AutoUpdateInterval="{Binding ElementName=AutoUpdateIntervalTextBox, Path=Text}"
                               IsEnabled="{Binding ElementName=IsEnabledCheckBox, Path=IsChecked}"
+                              Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               />
             <StackPanel Grid.Column="1" Margin="5">
                 <Label Content="Control Panel:" Margin="5" FontWeight="Bold"></Label>

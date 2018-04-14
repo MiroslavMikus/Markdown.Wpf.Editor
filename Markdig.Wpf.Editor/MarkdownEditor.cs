@@ -40,9 +40,6 @@ namespace Markdig.Wpf.Editor
 
         public MarkdownEditor()
         {
-#if DEBUG
-            Text = "test";
-#endif 
             MdDocument = GenerateDocument(Text);
         }
 
