@@ -5,16 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Markdig.Wpf.Editor.Demo"
         xmlns:editor="clr-namespace:Markdig.Wpf.Editor;assembly=Markdig.Wpf.Editor"
+        xmlns:markdig="clr-namespace:Markdig.Wpf;assembly=Markdig.Wpf"
+        xmlns:markdown="clr-namespace:Markdig;assembly=Markdig"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance local:DemoViewModel, IsDesignTimeCreatable=True}"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
-            </Grid.ColumnDefinitions>
-            <editor:MarkdownEditor Background="Bisque" 
+        <TabControl>
+            <TabItem Header="Markdig.Wpf.Editor">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <editor:MarkdownEditor Background="Bisque" 
                               EditorBackground="LightGray" 
                               AutoUpdate="{Binding ElementName=AutoUpdateCheckBox, Path=IsChecked, Mode=TwoWay}"
                               AutoUpdateInterval="{Binding ElementName=AutoUpdateIntervalTextBox, Path=Text}"
@@ -22,13 +26,21 @@
                               Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               Hyperlink="{Binding OnHyperlink}"
                               />
-            <StackPanel Grid.Column="1" Margin="5">
-                <Label Content="Control Panel:" Margin="5" FontWeight="Bold"></Label>
-                <CheckBox Content="IsEnabled" x:Name="IsEnabledCheckBox" IsChecked="True"/>
-                <CheckBox Content="AutoUpdate" x:Name="AutoUpdateCheckBox" IsChecked="True"/>
-                <Label Content="AutoUpdate interval: "/>
-                <TextBox x:Name="AutoUpdateIntervalTextBox">2000</TextBox>
-            </StackPanel>
-        </Grid>
+                    <StackPanel Grid.Column="1" Margin="5">
+                        <Label Content="Control Panel:" Margin="5" FontWeight="Bold"></Label>
+                        <CheckBox Content="IsEnabled" x:Name="IsEnabledCheckBox" IsChecked="True"/>
+                        <CheckBox Content="AutoUpdate" x:Name="AutoUpdateCheckBox" IsChecked="True"/>
+                        <Label Content="AutoUpdate interval: "/>
+                        <TextBox x:Name="AutoUpdateIntervalTextBox">2000</TextBox>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Markdig.Wpf">
+                <markdig:MarkdownViewer Markdown="# This is Markdown.Wpf" />
+            </TabItem>
+            <TabItem Header="Markdig">
+                <!--<markdown:MarkdownPipelineBuilder-->
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
