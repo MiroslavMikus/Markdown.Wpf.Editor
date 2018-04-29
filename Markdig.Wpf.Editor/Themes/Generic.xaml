@@ -61,7 +61,7 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="false">
-                            <Setter TargetName="ColumnDeff" Property="Width" Value="auto"/>
+                            <Setter TargetName="ColumnDeff" Property="Width" Value="0"/>
                             <Setter TargetName="Splitter" Property="Visibility" Value="Collapsed"/>
                             <Setter TargetName="DockEditor" Property="Visibility" Value="Collapsed"/>
                             <Setter TargetName="Pin" Property="Text" Value="&#xE718;"/>
