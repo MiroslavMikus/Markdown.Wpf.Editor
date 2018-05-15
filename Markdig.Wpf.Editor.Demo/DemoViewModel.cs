@@ -35,7 +35,6 @@ namespace Markdig.Wpf.Editor.Demo
 
 [Open google](https://www.google.com)";
 
-            Markdig.Markdown
             OnHyperlink = new DelegateCommand(link =>
             {
                 if (link is string input)
