@@ -143,6 +143,9 @@ namespace Markdig.Wpf.Editor
         #endregion
 
         #region propdp
+        /// <summary>
+        /// Raw text. 
+        /// </summary>
         public string Text
         {
             get { return (string)GetValue(TextProperty); }
@@ -151,6 +154,10 @@ namespace Markdig.Wpf.Editor
         public static readonly DependencyProperty TextProperty =
             DependencyProperty.Register("Text", typeof(string), typeof(MarkdownEditor), CreateBinding(default(string)));
 
+        /// <summary>
+        /// Specifies if markdown should be updated automatically in specified <see cref="AutoUpdateInterval"/>. 
+        /// Default is true.
+        /// </summary>
         public bool AutoUpdate
         {
             get { return (bool)GetValue(AutoUpdateProperty); }
@@ -159,6 +166,10 @@ namespace Markdig.Wpf.Editor
         public static readonly DependencyProperty AutoUpdateProperty =
             DependencyProperty.Register("AutoUpdate", typeof(bool), typeof(MarkdownEditor), new PropertyMetadata(true));
 
+        /// <summary>
+        /// Interval in ms for updating markdown view. Applies only if <see cref="AutoUpdate"/> is set to true and also the interval is more than 500.
+        /// Default is 5000 ms.
+        /// </summary>
         public double AutoUpdateInterval
         {
             get { return (double)GetValue(AutoUpdateIntervalProperty); }
@@ -183,6 +194,10 @@ namespace Markdig.Wpf.Editor
         public static readonly DependencyProperty UpdateProperty =
             DependencyProperty.Register("Update", typeof(ICommand), typeof(MarkdownEditor), new PropertyMetadata(default(ICommand)));
 
+        /// <summary>
+        /// Run action on click on a Hyperlink.
+        /// Link will come as string from command-parameter element
+        /// </summary>
         public ICommand Hyperlink
         {
             get { return (ICommand)GetValue(HyperlinkProperty); }
@@ -191,6 +206,9 @@ namespace Markdig.Wpf.Editor
         public static readonly DependencyProperty HyperlinkProperty =
             DependencyProperty.Register("Hyperlink", typeof(ICommand), typeof(MarkdownEditor), new PropertyMetadata(default(ICommand)));
 
+        /// <summary>
+        /// Background property for input field. Markdown view background can be set with background property.
+        /// </summary>
         public Brush EditorBackground
         {
             get { return (Brush)GetValue(EditorBackgroundProperty); }
@@ -205,7 +223,7 @@ namespace Markdig.Wpf.Editor
             set { SetValue(IsEnabledProperty, value); }
         }
         public new static readonly DependencyProperty IsEnabledProperty =
-            DependencyProperty.Register("IsEnabled", typeof(bool), typeof(MarkdownEditor), new PropertyMetadata(default(bool)));
+            DependencyProperty.Register("IsEnabled", typeof(bool), typeof(MarkdownEditor), new PropertyMetadata(true));
 
         #endregion
 
@@ -262,7 +280,7 @@ namespace Markdig.Wpf.Editor
 
         private T GetTemplateElement<T>(string xName) where T : UIElement => GetTemplateChild(xName) as T;
 
-        protected static FrameworkPropertyMetadata CreateBinding(object defaultValue)
+        private static FrameworkPropertyMetadata CreateBinding(object defaultValue)
             => new FrameworkPropertyMetadata(defaultValue)
             {
                 DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
