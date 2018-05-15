@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <metadata>
+    <id>Markdig.Wpf.Editor</id>
+    <version>$version$</version>
+    <title>Markdig.Wpf.Editor</title>
+    <authors>Miroslav Mikus</authors>
+    <owners>Miroslav Mikus</owners>
+    <iconUrl></iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Simple markdown wpf editor control.</description>
+    <copyright>Copyright 2018</copyright>
+    <dependencies>
+	  <dependency id="Markdig" version="0.15.0" />
+	  <dependency id="Markdig.Wpf" version="0.2.3" />
+    </dependencies>
+  </metadata>
+</package>
