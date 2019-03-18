@@ -33,6 +33,8 @@ namespace Markdig.Wpf.Editor.Demo
 
 [Open cmd](cmd)
 
+[Open notepad](notepad)
+
 [Open google](https://www.google.com)
 
 1. hallo

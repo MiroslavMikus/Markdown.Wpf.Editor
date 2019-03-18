@@ -12,11 +12,9 @@
                     <Grid Background="{TemplateBinding Background}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="auto"/>
                             <ColumnDefinition x:Name="ColumnDeff" Width="*" />
                         </Grid.ColumnDefinitions>
                         <markdig:MarkdownViewer x:Name="PART_MarkdownViewer" />
-                        <GridSplitter x:Name="Splitter" Width="4" ResizeBehavior="PreviousAndNext" Grid.Column="1"/>
                         <DockPanel x:Name="DockEditor" Grid.Column="2" LastChildFill="True" >
                             <ProgressBar x:Name="MdProgressBar" DockPanel.Dock="Bottom" Value="{TemplateBinding Progress}"/>
                             <TextBox x:Name="PART_TextBox"
@@ -65,7 +63,6 @@
                     <ControlTemplate.Triggers>
                         <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="false">
                             <Setter TargetName="ColumnDeff" Property="Width" Value="0"/>
-                            <Setter TargetName="Splitter" Property="Visibility" Value="Collapsed"/>
                             <Setter TargetName="DockEditor" Property="Visibility" Value="Collapsed"/>
                             <Setter TargetName="Pin" Property="Text" Value="&#xE718;"/>
                             <Setter TargetName="PART_AutoUpdateButton" Property="Visibility" Value="Hidden"/>
