@@ -4,6 +4,7 @@
     xmlns:local="clr-namespace:Markdig.Wpf.Editor"
     xmlns:markdig="clr-namespace:Markdig.Wpf;assembly=Markdig.Wpf"
     >
+    <!--http://modernicons.io/segoe-mdl2/cheatsheet/-->
     <Style TargetType="{x:Type local:MarkdownEditor}">
         <Setter Property="Template">
             <Setter.Value>
@@ -17,7 +18,6 @@
                         <markdig:MarkdownViewer x:Name="PART_MarkdownViewer" />
                         <GridSplitter x:Name="Splitter" Width="4" ResizeBehavior="PreviousAndNext" Grid.Column="1"/>
                         <DockPanel x:Name="DockEditor" Grid.Column="2" LastChildFill="True" >
-                            <Button Content="Update" x:Name="PART_UpdateButton" DockPanel.Dock="Bottom" Command="{TemplateBinding Update}"/>
                             <ProgressBar x:Name="MdProgressBar" DockPanel.Dock="Bottom" Value="{TemplateBinding Progress}"/>
                             <TextBox x:Name="PART_TextBox"
                                      Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}"
@@ -54,8 +54,11 @@
                             <Button x:Name="PART_PinButton" ToolTip="Disable editing">
                                 <TextBlock Margin="10" x:Name="Pin" FontFamily="Segoe MDL2 Assets" Text="&#xE77A;"/>
                             </Button>
-                            <Button x:Name="PART_AutoUpdateButton" ToolTip="Disable auto-update feature">
+                            <Button x:Name="PART_AutoUpdateButton" ToolTip="Disable auto-update">
                                 <TextBlock Margin="10" x:Name="Play" FontFamily="Segoe MDL2 Assets" Text="&#xE769;"/>
+                            </Button>
+                            <Button x:Name="PART_UpdateButton" ToolTip="Update" Command="{TemplateBinding Update}">
+                                <TextBlock Margin="10" FontFamily="Segoe MDL2 Assets" Text="&#xE72C;"/>
                             </Button>
                         </StackPanel>
                     </Grid>
@@ -66,6 +69,7 @@
                             <Setter TargetName="DockEditor" Property="Visibility" Value="Collapsed"/>
                             <Setter TargetName="Pin" Property="Text" Value="&#xE718;"/>
                             <Setter TargetName="PART_AutoUpdateButton" Property="Visibility" Value="Hidden"/>
+                            <Setter TargetName="PART_UpdateButton" Property="Visibility" Value="Hidden"/>
                             <Setter TargetName="PART_PinButton" Property="Opacity" Value="0.5"/>
                             <Setter TargetName="PART_PinButton" Property="ToolTip" Value="Enable editing"/>
                         </DataTrigger>
