@@ -15,7 +15,7 @@
                             <ColumnDefinition x:Name="ColumnDeff" Width="*" />
                         </Grid.ColumnDefinitions>
                         <markdig:MarkdownViewer x:Name="PART_MarkdownViewer" />
-                        <DockPanel x:Name="DockEditor" Grid.Column="2" LastChildFill="True" >
+                        <DockPanel x:Name="DockEditor" Grid.Column="1" LastChildFill="True" >
                             <ProgressBar x:Name="MdProgressBar" DockPanel.Dock="Bottom" Value="{TemplateBinding Progress}"/>
                             <TextBox x:Name="PART_TextBox"
                                      Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}"
@@ -47,16 +47,18 @@
                                     <Setter Property="BorderThickness" Value="0"/>
                                     <Setter Property="Background" Value="Transparent"/>
                                     <Setter Property="Opacity" Value="0.8"/>
+                                    <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+                                    <Setter Property="Margin" Value="10"/>
                                 </Style>
                             </StackPanel.Resources>
                             <Button x:Name="PART_PinButton" ToolTip="Disable editing">
-                                <TextBlock Margin="10" x:Name="Pin" FontFamily="Segoe MDL2 Assets" Text="&#xE77A;"/>
+                                <TextBlock x:Name="Pin" Text="&#xE77A;"/>
                             </Button>
                             <Button x:Name="PART_AutoUpdateButton" ToolTip="Disable auto-update">
-                                <TextBlock Margin="10" x:Name="Play" FontFamily="Segoe MDL2 Assets" Text="&#xE769;"/>
+                                <TextBlock x:Name="Play" Text="&#xE769;"/>
                             </Button>
                             <Button x:Name="PART_UpdateButton" ToolTip="Update" Command="{TemplateBinding Update}">
-                                <TextBlock Margin="10" FontFamily="Segoe MDL2 Assets" Text="&#xE72C;"/>
+                                <TextBlock Text="&#xE72C;"/>
                             </Button>
                         </StackPanel>
                     </Grid>
