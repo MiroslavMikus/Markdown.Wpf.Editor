@@ -55,7 +55,7 @@
                               AutoUpdate="{Binding ElementName=AutoUpdateCheckBox2, Path=IsChecked, Mode=TwoWay}"
                               AutoUpdateInterval="{Binding ElementName=AutoUpdateIntervalTextBox2, Path=Text}"
                               IsEnabled="{Binding ElementName=IsEnabledCheckBox2, Path=IsChecked, Mode=TwoWay}"
-                              Text="# Some Header"
+                              Text="{Binding DemoMd}"
                               Hyperlink="{Binding OnHyperlink}"
                               >
                         <editor:MarkdownEditor.Resources>

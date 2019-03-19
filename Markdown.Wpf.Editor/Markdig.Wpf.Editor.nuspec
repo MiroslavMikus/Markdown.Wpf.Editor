@@ -9,8 +9,10 @@
 	<projectUrl>https://github.com/MiroslavMikus/Markdig.Wpf.Editor</projectUrl>
     <iconUrl>https://www.nuget.org/Content/gallery/img/default-package-icon-256x256.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Simple markdown wpf editor control.</description>
+    <description>Simple markdown wpf-editor control.</description>
     <copyright>Copyright 2019</copyright>
+	<tags>MD markdown markdig editor wpf control wpfcontrol wpfeditor</tags>
+	<releaseNotes>Initial release.</releaseNotes>
     <dependencies>
 	  <dependency id="Markdig" version="0.16.0" />
 	  <dependency id="Markdig.Wpf" version="0.2.7" />

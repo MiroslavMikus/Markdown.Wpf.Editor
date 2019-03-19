@@ -84,7 +84,14 @@ namespace Markdown.Wpf.Editor
             }
             else
             {
-                Process.Start(e.Parameter.ToString());
+                try
+                {
+                    Process.Start(e.Parameter.ToString());
+                }
+                catch 
+                {
+                    // todo add logging
+                }
             }
         }
 

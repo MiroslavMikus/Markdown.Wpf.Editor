@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -13,6 +14,8 @@ namespace Markdown.Wpf.Editor.Demo
 {
     public class DemoViewModel : INotifyPropertyChanged
     {
+        public string DemoMd { get; set; }
+
         private string _text;
         public string Text
         {
@@ -41,11 +44,14 @@ namespace Markdown.Wpf.Editor.Demo
 3. are you
 
 > Note";
+
+            DemoMd = File.ReadAllText("Demo.md");
+
             OnHyperlink = new DelegateCommand(link =>
             {
                 if (link is string input)
                 {
-                    MessageBox.Show(input);
+                    //MessageBox.Show(input);
 
                     Process.Start(input);
                 }
