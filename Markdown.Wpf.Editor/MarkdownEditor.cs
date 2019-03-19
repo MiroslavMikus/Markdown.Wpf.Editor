@@ -21,7 +21,7 @@ using Markdig.Wpf;
 using XamlReader = System.Windows.Markup.XamlReader;
 
 
-namespace Markdig.Wpf.Editor
+namespace Markdown.Wpf.Editor
 {
     public class MarkdownEditor : Control
     {
@@ -39,7 +39,7 @@ namespace Markdig.Wpf.Editor
         private Button _autoUpdateButton;
 
         private const string MarkDownControl = "PART_MarkdownViewer";
-        private MarkdownViewer _markDownControl; 
+        private MarkdownViewer _markDownControl;
         #endregion
 
         private DispatcherTimer _progressTimer;
@@ -57,10 +57,15 @@ namespace Markdig.Wpf.Editor
 
         public override void OnApplyTemplate()
         {
+            _markDownControl = GetTemplateElement<MarkdownViewer>(MarkDownControl);
+            _markDownControl.Pipeline = BuildPipeline();
+            _markDownControl.CommandBindings.Add(new CommandBinding(Commands.Hyperlink, ExecuteHyperlink));
+
             _updateButton = GetTemplateElement<Button>(PartUpdateButton);
             _updateButton.Click += UpdateButton_Click;
 
             _textBox = GetTemplateElement<TextBox>(PartTextBox);
+            GenerateDocument(Text);
             _textBox.TextChanged += TextBox_TextChanged;
 
             _pinButton = GetTemplateElement<Button>(PinButton);
@@ -68,10 +73,6 @@ namespace Markdig.Wpf.Editor
 
             _autoUpdateButton = GetTemplateElement<Button>(AutoUpdateButton);
             _autoUpdateButton.Click += AutoUpdateButton_Click;
-
-            _markDownControl = GetTemplateElement<MarkdownViewer>(MarkDownControl);
-            _markDownControl.Pipeline = BuildPipeline();
-            _markDownControl.CommandBindings.Add(new CommandBinding(Commands.Hyperlink, ExecuteHyperlink));
         }
 
         #region Events

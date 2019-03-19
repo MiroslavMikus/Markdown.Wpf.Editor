@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27428.2015
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28711.60
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Markdig.Wpf.Editor", "Markdig.Wpf.Editor\Markdig.Wpf.Editor.csproj", "{0A975087-0046-4B99-B09F-AA3ABB42DAE4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Markdown.Wpf.Editor", "Markdown.Wpf.Editor\Markdown.Wpf.Editor.csproj", "{0A975087-0046-4B99-B09F-AA3ABB42DAE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Markdig.Wpf.Editor.Demo", "Markdig.Wpf.Editor.Demo\Markdig.Wpf.Editor.Demo.csproj", "{2700DC9A-2A5C-4014-9E4D-465CF0B774EF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Markdown.Wpf.Editor.Demo", "Markdown.Wpf.Editor.Demo\Markdown.Wpf.Editor.Demo.csproj", "{2700DC9A-2A5C-4014-9E4D-465CF0B774EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

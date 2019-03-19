@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
-namespace Markdig.Wpf.Editor.Demo
+namespace Markdown.Wpf.Editor.Demo
 {
     public class DemoViewModel : INotifyPropertyChanged
     {
@@ -23,7 +23,6 @@ namespace Markdig.Wpf.Editor.Demo
                 NotifyPropertyChanged();
             }
         }
-
         public ICommand OnHyperlink { get; }
 
         public DemoViewModel()
@@ -42,7 +41,6 @@ namespace Markdig.Wpf.Editor.Demo
 3. are you
 
 > Note";
-
             OnHyperlink = new DelegateCommand(link =>
             {
                 if (link is string input)

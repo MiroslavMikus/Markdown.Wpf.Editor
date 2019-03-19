@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Markdig.Wpf.Editor.Demo
+namespace Markdown.Wpf.Editor.Demo
 {
     public class DelegateCommand : ICommand
     {
