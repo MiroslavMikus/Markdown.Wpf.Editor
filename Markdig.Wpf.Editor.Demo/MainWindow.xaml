@@ -9,7 +9,7 @@
         xmlns:markdown="clr-namespace:Markdig;assembly=Markdig"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance local:DemoViewModel, IsDesignTimeCreatable=True}"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Markdown editor demo" Height="450" Width="800">
     <Grid>
         <TabControl>
             <TabItem Header="Markdig.Wpf.Editor">
@@ -27,11 +27,53 @@
                               Hyperlink="{Binding OnHyperlink}"
                               />
                     <StackPanel Grid.Column="1" Margin="5">
-                        <Label Content="Control Panel:" Margin="5" FontWeight="Bold"></Label>
+                        <Label Content="Control Panel:" Margin="5" FontWeight="Bold"/>
                         <CheckBox Content="IsEnabled" x:Name="IsEnabledCheckBox" IsChecked="True"/>
                         <CheckBox Content="AutoUpdate" x:Name="AutoUpdateCheckBox" IsChecked="True"/>
                         <Label Content="AutoUpdate interval: "/>
                         <TextBox x:Name="AutoUpdateIntervalTextBox">2000</TextBox>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Markdig.Wpf.Editor with material">
+                <TabItem.Resources>
+                    <ResourceDictionary>
+                        <ResourceDictionary.MergedDictionaries>
+                            <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                            <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                            <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+                            <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+                        </ResourceDictionary.MergedDictionaries>
+                    </ResourceDictionary>
+                </TabItem.Resources>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <editor:MarkdownEditor 
+                              AutoUpdate="{Binding ElementName=AutoUpdateCheckBox2, Path=IsChecked, Mode=TwoWay}"
+                              AutoUpdateInterval="{Binding ElementName=AutoUpdateIntervalTextBox2, Path=Text}"
+                              IsEnabled="{Binding ElementName=IsEnabledCheckBox2, Path=IsChecked, Mode=TwoWay}"
+                              Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              Hyperlink="{Binding OnHyperlink}"
+                              >
+                        <editor:MarkdownEditor.Resources>
+                            <!--Make ProgressBar wider-->
+                            <Style TargetType="{x:Type ProgressBar}" BasedOn="{StaticResource MaterialDesignLinearProgressBar}">
+                                <Setter Property="Height" Value="15"/>
+                            </Style>
+                            <Style TargetType="{x:Type TextBox}">
+                                <Setter Property="BorderThickness" Value="10"/>
+                            </Style>
+                        </editor:MarkdownEditor.Resources>
+                    </editor:MarkdownEditor>
+                    <StackPanel Grid.Column="1" Margin="5">
+                        <Label Content="Control Panel:" Margin="5" FontWeight="Bold"/>
+                        <CheckBox Content="IsEnabled" x:Name="IsEnabledCheckBox2" IsChecked="True"/>
+                        <CheckBox Content="AutoUpdate" x:Name="AutoUpdateCheckBox2" IsChecked="True"/>
+                        <Label Content="AutoUpdate interval: "/>
+                        <TextBox x:Name="AutoUpdateIntervalTextBox2">2000</TextBox>
                     </StackPanel>
                 </Grid>
             </TabItem>
