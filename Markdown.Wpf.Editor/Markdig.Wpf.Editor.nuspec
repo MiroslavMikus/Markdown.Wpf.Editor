@@ -12,7 +12,23 @@
     <description>Simple markdown wpf-editor control.</description>
     <copyright>Copyright 2019</copyright>
 	<tags>MD markdown markdig editor wpf control wpfcontrol wpfeditor</tags>
-	<releaseNotes>Initial release.</releaseNotes>
+	<releaseNotes>
+## Initial release.
+	
+### Features:
+	
+1. **Enable or disable** markdown editor:
+
+![OpenCloseEditor](https://raw.githubusercontent.com/MiroslavMikus/Markdown.Wpf.Editor/master/res/OpenCloseEditor.gif)
+	
+2. **Auto-update** your markdown document after specific intervall
+
+![Auto-update](https://raw.githubusercontent.com/MiroslavMikus/Markdown.Wpf.Editor/master/res/AutoUpdate.gif)
+	
+3. You can **disable the auto-update** feature and update your document manually
+
+![Manual-update](https://raw.githubusercontent.com/MiroslavMikus/Markdown.Wpf.Editor/master/res/DisableAutoUpdate.gif)
+	</releaseNotes>
     <dependencies>
 	  <dependency id="Markdig" version="0.16.0" />
 	  <dependency id="Markdig.Wpf" version="0.2.7" />
