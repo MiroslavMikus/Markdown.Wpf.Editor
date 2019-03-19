@@ -2,7 +2,7 @@
 <package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <metadata>
     <id>Markdig.Wpf.Editor</id>
-    <version>$version$</version>
+    <version>0.1.0.0</version>
     <title>Markdig.Wpf.Editor</title>
     <authors>Miroslav Mikus</authors>
     <owners>Miroslav Mikus</owners>
@@ -10,10 +10,10 @@
     <iconUrl>https://www.nuget.org/Content/gallery/img/default-package-icon-256x256.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Simple markdown wpf editor control.</description>
-    <copyright>Copyright 2018</copyright>
+    <copyright>Copyright 2019</copyright>
     <dependencies>
-	  <dependency id="Markdig" version="0.15.0" />
-	  <dependency id="Markdig.Wpf" version="0.2.3" />
+	  <dependency id="Markdig" version="0.16.0" />
+	  <dependency id="Markdig.Wpf" version="0.2.7" />
     </dependencies>
   </metadata>
   <files>
